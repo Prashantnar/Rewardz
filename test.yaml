@@ -1,0 +1,19 @@
+--- #first
+
+- hosts: all
+  user: ansible
+  connection: ssh
+  become: yes
+
+  tasks:
+    - name: install httpd
+      action: yum pkg="httpd" state="present"
+      notify: 
+        - start httpd
+        - deploy
+
+  handlers:
+     - name: start httpd
+       action: service name="httpd" state="started"
+     - name: deploy
+       action: copy src=index.html dest=/var/www/html/
