@@ -9,11 +9,11 @@
     - name: install httpd
       action: yum pkg="httpd" state="present"
       notify: 
-        - start httpd
+        - start
         - deploy
 
   handlers:
-     - name: start httpd
-       action: service name="httpd" state="started"
-     - name: deploy
-       action: copy src=index.html dest=/var/www/html/
+    - name: start
+      action: service name="httpd" state="started"
+    - name: deploy
+      action: copy src="wordpress"" dest="/var/www/html/"
