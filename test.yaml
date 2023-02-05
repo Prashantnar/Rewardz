@@ -16,4 +16,4 @@
     - name: start
       action: service name="httpd" state="started"
     - name: deploy
-      action: copy src="wordpress"" dest="/var/www/html/"
+      action: copy src="/home/ansible/index.html" dest="/var/www/html/"

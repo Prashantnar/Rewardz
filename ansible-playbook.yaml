@@ -1,0 +1,30 @@
+- 
+  name: install docker
+  hosts: all
+  become: yes
+  tasks:
+    - name: docker installing
+      yum:
+        name: docker
+        state: present
+    - service:
+        name: docker
+        state: started
+    
+    - shell: |
+        curl -SL https://github.com/docker/compose/releases/download/v2.15.1/docker-compose-linux-x86_64 -o /usr/local/bin/docker-compose
+        chmod +x /usr/local/bin
+        ln -s /usr/local/bin/docker-compose /usr/bin/docker-compose
+        chmod +x /usr/bin/docker-compose
+        docker-compose down
+        docker system prune -af
+        rm -rf *
+    - copy:
+        src: docker-compose.yaml
+        dest: docker-compose.yaml
+
+    - shell: |
+        docker-compose up -d
+          
+
+
